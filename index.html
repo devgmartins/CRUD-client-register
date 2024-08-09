@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <link rel="stylesheet" href="./src/styles/output.css" />
+
+        <title>Projeto CRUD</title>
+        <meta name="description" content="Projeto teste CRUD" />
+    </head>
+    <body class="bg-zinc-200 *:antialiased">
+        <!--Modal-->
+        <div
+            id="newClientsModal"
+            class="fixed h-screen w-screen bg-black/70 hidden"
+        >
+            <div
+                class="fixed top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-zinc-100 p-5 rounded-2xl w-11/12 md:w-11/12 lg:w-1/2"
+            >
+                <header class="flex items-center justify-between mb-5">
+                    <h2 class="font-bold text-3xl">Novo Cliente</h2>
+                    <span
+                        id="closeModal"
+                        class="text-lg hover:underline cursor-pointer"
+                        >Fechar</span
+                    >
+                </header>
+
+                <form
+                    id="newClientsForm"
+                    class="flex flex-col md:grid md:grid-cols-2 gap-4"
+                >
+                    <input
+                        type="text"
+                        placeholder="Digite o nome do cliente"
+                        class="p-3 rounded-lg shadow-md text-lg"
+                        id="clientNameInput"
+                        autocomplete="off"
+                    />
+                    <input
+                        type="email"
+                        placeholder="Digite e-mail do cliente"
+                        class="p-3 rounded-lg shadow-md text-lg"
+                        id="clientEmailInput"
+                        autocomplete="off"
+                    />
+                    <input
+                        type="number"
+                        placeholder="Digite o telefone do cliente"
+                        class="p-3 rounded-lg shadow-md text-lg"
+                        id="clientPhoneInput"
+                        autocomplete="off"
+                    />
+                    <input
+                        type="text"
+                        placeholder="Digite a cidade do cliente"
+                        class="p-3 rounded-lg shadow-md text-lg"
+                        id="clientCityInput"
+                        autocomplete="off"
+                    />
+
+                    <button
+                        id="addClient"
+                        class="py-3 font-bold text-zinc-100 text-lg bg-blue-500 hover:ring-2 transition-all rounded-xl md:col-span-2"
+                    >
+                        Cadastrar
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!--Update Modal-->
+        <div
+            id="updateClientsModal"
+            class="fixed h-screen w-screen bg-black/70 hidden"
+        >
+            <div
+                class="fixed top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-zinc-100 shadow-xl p-5 rounded-2xl w-11/12 md:w-11/12 lg:w-1/2"
+            >
+                <header class="flex justify-between mb-5">
+                    <h2 class="font-bold text-3xl">Atualizar Dados</h2>
+                </header>
+
+                <form
+                    id="updateDataForm"
+                    class="flex flex-col md:grid md:grid-cols-2 gap-4"
+                >
+                    <input
+                        type="text"
+                        placeholder="Digite o nome do cliente"
+                        class="p-3 rounded-lg shadow-md text-lg"
+                        id="inputClientName"
+                        autocomplete="off"
+                    />
+                    <input
+                        type="email"
+                        placeholder="Digite e-mail do cliente"
+                        class="p-3 rounded-lg shadow-md text-lg"
+                        id="inputClientEmail"
+                        autocomplete="off"
+                    />
+                    <input
+                        type="number"
+                        placeholder="Digite o telefone do cliente"
+                        class="p-3 rounded-lg shadow-md text-lg"
+                        id="inputClientPhone"
+                        autocomplete="off"
+                    />
+                    <input
+                        type="text"
+                        placeholder="Digite a cidade do cliente"
+                        class="p-3 rounded-lg shadow-md text-lg"
+                        id="inputClientCity"
+                        autocomplete="off"
+                    />
+
+                    <div class="grid grid-cols-2 md:col-span-2 gap-3">
+                        <button
+                            id="saveDatasButton"
+                            class="py-3 px-4 font-bold text-zinc-100 text-lg bg-green-600 hover:ring-2 ring-green-500 transition-all rounded-lg"
+                        >
+                            Salvar
+                        </button>
+                        <button
+                            id="cancelUpdateButton"
+                            class="py-3 px-4 font-bold text-zinc-100 text-lg bg-red-500 hover:ring-2 ring-red-400 transition-all rounded-lg"
+                        >
+                            Cancelar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!--Header-->
+        <header class="bg-blue-600 py-10 px-14">
+            <h1 class="text-2xl font-bold text-zinc-100 text-center">
+                Cadastro de Clientes
+            </h1>
+        </header>
+
+        <!--Main Content-->
+        <main class="mx-5 mt-7 bg-zinc-100 shadow-lg rounded-2xl p-5 md:px-10">
+            <header class="my-2">
+                <button
+                    id="openModal"
+                    class="py-3 px-5 md:py-3 lg:py-4 md:px-4 lg:px-5 font-bold text-zinc-100 bg-blue-500 rounded-xl hover:ring-2 transition-all"
+                >
+                    Adicionar Cliente
+                </button>
+            </header>
+
+            <section class="overflow-x-auto my-5">
+                <table class="text-left shadow-md w-full">
+                    <thead class="bg-blue-500">
+                        <tr
+                            class="flex items-center justify-around lg:justify-between text-zinc-100"
+                        >
+                            <th class="p-3 text-left text-sm md:text-lg">
+                                Nome
+                            </th>
+                            <th class="p-3 text-left text-sm md:text-lg">
+                                E-mail
+                            </th>
+                            <th class="p-3 text-left text-sm md:text-lg">
+                                Celular
+                            </th>
+                            <th class="p-3 text-left text-sm md:text-lg">
+                                Cidade
+                            </th>
+                            <th class="p-3 text-left text-sm md:text-lg">
+                                Ações
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
+            </section>
+        </main>
+
+        <script src="./src/js/main.js"></script>
+    </body>
+</html>
